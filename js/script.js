@@ -1,9 +1,21 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Scroll Progress Bar & Nav Background
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
+    const progressBar = document.getElementById('scroll-progress');
+    
+    // Nav background
     if (window.scrollY > 20) nav.classList.add('nav-scrolled');
     else nav.classList.remove('nav-scrolled');
+
+    // Progress Bar
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    if (progressBar) {
+        progressBar.style.width = scrolled + "%";
+    }
 });
 
 const menu = document.getElementById('mobile-menu');
