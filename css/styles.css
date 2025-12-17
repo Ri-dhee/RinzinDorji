@@ -453,6 +453,41 @@
   }
 }
 
+/* Button Shimmer Effect */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+  body, a, button, input, textarea {
+    cursor: none !important;
+  }
+}
+
 .tilt-card {
   transform-style: preserve-3d;
   transform: perspective(1000px);

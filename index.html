@@ -18,7 +18,22 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css?v=2">
 </head>
-<body class="bg-dark-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-dark-900">
+<body class="bg-dark-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-dark-900 cursor-none">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center transition-opacity duration-700">
+        <div class="flex flex-col items-center">
+            <div class="relative w-20 h-20">
+                <div class="absolute inset-0 border-4 border-brand-500/20 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-2xl">🌿</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor" class="fixed w-8 h-8 border border-brand-500/50 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 hidden md:block mix-blend-screen"></div>
+    <div id="cursor-dot" class="fixed w-1.5 h-1.5 bg-brand-400 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block"></div>
 
     <!-- Noise Overlay -->
     <div class="noise-overlay"></div>
@@ -84,7 +99,7 @@
                     Researcher, Enumerator, and AI Enthusiast based in Bhutan. Bridging the gap between traditional organic farming and modern technological innovation.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 md:gap-5">
-                    <a href="#research" class="px-8 py-4 bg-white text-dark-900 rounded-full font-bold hover:bg-brand-500 hover:text-white transition-all transform hover:scale-105 active:scale-95 text-center">
+                    <a href="#research" class="btn-shimmer px-8 py-4 bg-white text-dark-900 rounded-full font-bold hover:bg-brand-500 hover:text-white transition-all transform hover:scale-105 active:scale-95 text-center">
                         Explore My Thesis
                     </a>
                     <a href="https://abetterlifelearning.blogspot.com/" target="_blank" class="px-8 py-4 glass-card text-white rounded-full font-bold hover:bg-white/10 transition-all text-center">

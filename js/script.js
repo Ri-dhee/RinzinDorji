@@ -1,5 +1,40 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Preloader
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    preloader.style.opacity = '0';
+    setTimeout(() => {
+        preloader.style.display = 'none';
+    }, 700);
+});
+
+// Custom Cursor
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursor-dot');
+
+if (window.matchMedia("(min-width: 768px)").matches) {
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .glass-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursor.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
+            cursor.style.borderColor = 'transparent';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.backgroundColor = 'transparent';
+            cursor.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+        });
+    });
+}
+
 // Scroll Progress Bar & Nav Background
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
