@@ -47,3 +47,34 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// 3D Tilt Effect
+document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.glass-card, .profile-img-container');
+    
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Only apply if mouse is near the card to save performance
+        if (
+            e.clientX >= rect.left - 50 && 
+            e.clientX <= rect.right + 50 && 
+            e.clientY >= rect.top - 50 && 
+            e.clientY <= rect.bottom + 50
+        ) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -5; // Max rotation deg
+            const rotateY = ((x - centerX) / centerX) * 5;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = 'transform 0.1s ease';
+        } else {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            card.style.transition = 'transform 0.5s ease';
+        }
+    });
+});

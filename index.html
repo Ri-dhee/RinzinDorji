@@ -20,6 +20,9 @@
 </head>
 <body class="bg-dark-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-dark-900">
 
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-400 to-emerald-400 z-[100] w-0 transition-all duration-100"></div>
 
@@ -111,6 +114,14 @@
                 <div class="absolute -bottom-5 -left-5 w-40 h-40 md:w-60 md:h-60 bg-emerald-500/20 rounded-full blur-3xl"></div>
             </div>
         </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#about" class="scroll-indicator hidden md:flex">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span class="text-[10px] uppercase tracking-widest text-slate-500">Scroll</span>
+        </a>
     </section>
 
     <!-- Profile Section -->
