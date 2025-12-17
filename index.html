@@ -5,217 +5,315 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rinzin Dorji - Portfolio</title>
     
+    <!-- Inline Tailwind Configuration Script - MUST be before Tailwind CDN -->
     <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    'brand': {
-                        400: '#4ade80',
-                        500: '#22c55e',
-                        600: '#16a34a',
-                        900: '#14532d'
-                    },
-                    'dark': {
-                        800: '#1e293b',
-                        900: '#0f172a'
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            900: '#14532d'
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
                     }
                 }
             }
         }
-    }
-</script>
-<script src="https://cdn.tailwindcss.com"></script>
+    </script>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            border-radius: 2px;
+        }
+    </style>
 </head>
-<body class="bg-dark-900 text-white">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-dark-800/95 backdrop-blur-sm z-50 border-b border-brand-900/20">
-        <div class="max-w-6xl mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold text-brand-400">RD</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="hover:text-brand-400 transition-colors">About</a>
-                    <a href="#skills" class="hover:text-brand-400 transition-colors">Skills</a>
-                    <a href="#projects" class="hover:text-brand-400 transition-colors">Projects</a>
-                    <a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a>
+<body class="bg-gray-50">
+    
+    <!-- Hero Section -->
+    <header class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-6">
+                    <div class="w-32 h-32 mx-auto bg-brand-500 rounded-full flex items-center justify-center text-5xl font-bold shadow-lg">
+                        RD
+                    </div>
                 </div>
-                <button class="md:hidden text-brand-400" id="menuBtn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+                <h1 class="text-5xl font-bold mb-4">Rinzin Dorji</h1>
+                <p class="text-xl text-gray-300 mb-6">Agricultural Innovation & Sustainability Researcher</p>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Passionate about organic agriculture, sustainable development, and leveraging technology 
+                    for agricultural innovation in Bhutan and beyond.
+                </p>
+                <div class="mt-8 flex justify-center gap-4">
+                    <a href="#contact" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-3 rounded-lg font-semibold transition">
+                        Get in Touch
+                    </a>
+                    <a href="#projects" class="bg-transparent border-2 border-white hover:bg-white hover:text-dark-900 text-white px-8 py-3 rounded-lg font-semibold transition">
+                        View Projects
+                    </a>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden fixed inset-0 bg-dark-900 z-40 pt-20">
-        <div class="flex flex-col items-center space-y-8 text-xl">
-            <a href="#about" class="hover:text-brand-400 transition-colors">About</a>
-            <a href="#skills" class="hover:text-brand-400 transition-colors">Skills</a>
-            <a href="#projects" class="hover:text-brand-400 transition-colors">Projects</a>
-            <a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-4 pt-16">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-                Hi, I'm <span class="text-brand-400">Rinzin Dorji</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8 animate-fade-in-delay">
-                Full Stack Developer | Problem Solver | Tech Enthusiast
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
-                <a href="#contact" class="bg-brand-500 hover:bg-brand-600 px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105">
-                    Get In Touch
-                </a>
-                <a href="#projects" class="border-2 border-brand-500 hover:bg-brand-500/10 px-8 py-3 rounded-lg font-semibold transition-all">
-                    View My Work
-                </a>
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-8 section-title">About Me</h2>
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        I am a dedicated agricultural researcher and sustainability advocate currently pursuing my studies 
+                        at the <strong>College of Natural Resources, Royal University of Bhutan</strong>. My journey in 
+                        agriculture and innovation has been driven by a passion for sustainable development and a commitment 
+                        to improving agricultural practices in Bhutan.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        As a <strong>Youth Co:Lab Fellow</strong>, I have had the opportunity to work on innovative projects 
+                        that bridge traditional agricultural practices with modern sustainable technologies, always keeping 
+                        environmental stewardship and community impact at the forefront.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 px-4 bg-dark-800">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold mb-8 text-center">About Me</h2>
-            <div class="bg-dark-900 p-8 rounded-lg shadow-xl">
-                <p class="text-lg text-gray-300 leading-relaxed mb-4">
-                    I'm a passionate developer with a love for creating elegant solutions to complex problems. 
-                    With expertise in both front-end and back-end technologies, I bring ideas to life through clean, 
-                    efficient code.
-                </p>
-                <p class="text-lg text-gray-300 leading-relaxed">
-                    When I'm not coding, you can find me exploring new technologies, contributing to open-source 
-                    projects, or sharing knowledge with the developer community.
-                </p>
+    <!-- Research & Projects Section -->
+    <section id="projects" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-12 section-title">Research & Projects</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-gradient-to-r from-brand-500 to-brand-400 h-2"></div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                                Potato Peel Waste Bio Composite Films
+                            </h3>
+                            <p class="text-gray-700 mb-4">
+                                Innovative research on converting agricultural waste into biodegradable composite materials, 
+                                contributing to circular economy principles and waste reduction in agriculture.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Sustainability</span>
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Innovation</span>
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Research</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                        <div class="bg-gradient-to-r from-brand-500 to-brand-400 h-2"></div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                                Agrifood Innovation Value Chain Redesign
+                            </h3>
+                            <p class="text-gray-700 mb-4">
+                                Comprehensive analysis and redesign of agricultural value chains to improve efficiency, 
+                                sustainability, and economic outcomes for farmers and communities.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Value Chain</span>
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Agriculture</span>
+                                <span class="bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-sm font-semibold">Economics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-12 section-title">Experience</h2>
+                
+                <div class="space-y-8">
+                    
+                    <!-- Experience 1 -->
+                    <div class="border-l-4 border-brand-500 pl-6 py-2">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">WERELIS-Bhutan</h3>
+                        <p class="text-brand-600 font-semibold mb-3">Agricultural Development & Research</p>
+                        <p class="text-gray-700">
+                            Contributed to sustainable agricultural development initiatives, focusing on organic farming 
+                            practices and community empowerment through innovative agricultural solutions.
+                        </p>
+                    </div>
+
+                    <!-- Experience 2 -->
+                    <div class="border-l-4 border-brand-500 pl-6 py-2">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">NCOA Ministry of Agriculture</h3>
+                        <p class="text-brand-600 font-semibold mb-3">Research & Policy Support</p>
+                        <p class="text-gray-700">
+                            Worked on national agricultural policy research and implementation, supporting the ministry's 
+                            efforts in promoting organic agriculture and sustainable farming practices across Bhutan.
+                        </p>
+                    </div>
+
+                    <!-- Experience 3 -->
+                    <div class="border-l-4 border-brand-500 pl-6 py-2">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Samdrup Jongkhar Initiative</h3>
+                        <p class="text-brand-600 font-semibold mb-3">Community Development</p>
+                        <p class="text-gray-700">
+                            Engaged in grassroots community development projects focused on sustainable agriculture, 
+                            rural development, and empowering local farmers with modern agricultural techniques.
+                        </p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Skills & Technologies</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">🌐</div>
-                    <h3 class="font-semibold text-brand-400">HTML/CSS</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">⚡</div>
-                    <h3 class="font-semibold text-brand-400">JavaScript</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">⚛️</div>
-                    <h3 class="font-semibold text-brand-400">React</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">🟢</div>
-                    <h3 class="font-semibold text-brand-400">Node.js</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">🐍</div>
-                    <h3 class="font-semibold text-brand-400">Python</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">🗄️</div>
-                    <h3 class="font-semibold text-brand-400">SQL</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">🔧</div>
-                    <h3 class="font-semibold text-brand-400">Git</h3>
-                </div>
-                <div class="bg-dark-800 p-6 rounded-lg text-center hover:bg-brand-900/20 transition-all transform hover:scale-105">
-                    <div class="text-4xl mb-3">☁️</div>
-                    <h3 class="font-semibold text-brand-400">Cloud</h3>
+    <section id="skills" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-12 section-title">Skills & Expertise</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">R Statistics</h3>
+                        <p class="text-gray-600">Statistical analysis and data visualization for agricultural research</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+                        <div class="text-4xl mb-4">🗺️</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">ArcGIS Pro</h3>
+                        <p class="text-gray-600">Geographic information systems and spatial analysis</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+                        <div class="text-4xl mb-4">🔬</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Lab Analysis</h3>
+                        <p class="text-gray-600">Soil testing, crop analysis, and laboratory research methods</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+                        <div class="text-4xl mb-4">🤖</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">AI Ethics</h3>
+                        <p class="text-gray-600">Ethical considerations in AI applications for agriculture</p>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 bg-dark-800">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="bg-dark-900 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
-                    <div class="h-48 bg-gradient-to-br from-brand-600 to-brand-900 flex items-center justify-center">
-                        <span class="text-6xl">🚀</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-brand-400">Project Alpha</h3>
-                        <p class="text-gray-300 mb-4">A modern web application built with React and Node.js</p>
-                        <div class="flex gap-2">
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">React</span>
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">Node.js</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-12 section-title">Achievements</h2>
                 
-                <!-- Project 2 -->
-                <div class="bg-dark-900 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
-                    <div class="h-48 bg-gradient-to-br from-brand-600 to-brand-900 flex items-center justify-center">
-                        <span class="text-6xl">💼</span>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <div class="text-center p-6 bg-gradient-to-br from-brand-50 to-brand-100 rounded-xl card-hover">
+                        <div class="text-5xl mb-4">🏆</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">STEM Olympiad Winner</h3>
+                        <p class="text-gray-700">
+                            Recognized for excellence in Science, Technology, Engineering, and Mathematics
+                        </p>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-brand-400">Project Beta</h3>
-                        <p class="text-gray-300 mb-4">E-commerce platform with advanced features</p>
-                        <div class="flex gap-2">
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">Python</span>
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">Django</span>
-                        </div>
+
+                    <div class="text-center p-6 bg-gradient-to-br from-brand-50 to-brand-100 rounded-xl card-hover">
+                        <div class="text-5xl mb-4">🎓</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Youth Co:Lab Fellow</h3>
+                        <p class="text-gray-700">
+                            Selected for prestigious fellowship program supporting young innovators
+                        </p>
                     </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="bg-dark-900 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
-                    <div class="h-48 bg-gradient-to-br from-brand-600 to-brand-900 flex items-center justify-center">
-                        <span class="text-6xl">🎨</span>
+
+                    <div class="text-center p-6 bg-gradient-to-br from-brand-50 to-brand-100 rounded-xl card-hover">
+                        <div class="text-5xl mb-4">🌱</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Sustainability Advocate</h3>
+                        <p class="text-gray-700">
+                            Champion for organic agriculture and sustainable development in Bhutan
+                        </p>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-brand-400">Project Gamma</h3>
-                        <p class="text-gray-300 mb-4">Creative portfolio website with animations</p>
-                        <div class="flex gap-2">
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">HTML</span>
-                            <span class="bg-brand-900/30 text-brand-400 px-3 py-1 rounded text-sm">CSS</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4">
-        <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8">Get In Touch</h2>
-            <p class="text-xl text-gray-300 mb-8">
-                I'm always open to new opportunities and collaborations. Let's connect!
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="mailto:rinzin@example.com" class="bg-brand-500 hover:bg-brand-600 px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
-                    <span>📧</span> Email Me
-                </a>
-                <a href="https://github.com" class="bg-dark-800 hover:bg-brand-900/20 px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
-                    <span>💻</span> GitHub
-                </a>
-                <a href="https://linkedin.com" class="bg-dark-800 hover:bg-brand-900/20 px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
-                    <span>💼</span> LinkedIn
-                </a>
+    <section id="contact" class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-6">Let's Connect</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Interested in collaborating on sustainable agriculture projects or discussing agricultural innovation? 
+                    I'd love to hear from you!
+                </p>
+                <div class="flex justify-center gap-6 mb-8">
+                    <a href="mailto:rinzin.dorji@example.com" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-3 rounded-lg font-semibold transition">
+                        📧 Email Me
+                    </a>
+                    <a href="https://www.linkedin.com" target="_blank" class="bg-transparent border-2 border-white hover:bg-white hover:text-dark-900 text-white px-8 py-3 rounded-lg font-semibold transition">
+                        💼 LinkedIn
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark-800 py-8 px-4 text-center border-t border-brand-900/20">
-        <p class="text-gray-400">© 2024 Rinzin Dorji. All rights reserved.</p>
+    <footer class="bg-dark-900 text-gray-400 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">&copy; 2024 Rinzin Dorji. All rights reserved.</p>
+            <p class="text-sm">Committed to sustainable agriculture and innovation in Bhutan 🇧🇹</p>
+        </div>
     </footer>
 
-    <script src="js/main.js"></script>
 </body>
 </html>
