@@ -67,18 +67,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/tailwind.css" as="style">
+    <link rel="preload" href="images/profile.jpg" as="image" fetchpriority="high">
+    
+    <!-- Critical CSS (inline for fastest render) -->
+    <style>
+        /* Critical above-the-fold styles */
+        *,::before,::after{box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{margin:0;font-family:Outfit,system-ui,sans-serif;background:#0f172a;color:#cbd5e1;-webkit-font-smoothing:antialiased}
+        .bg-dark-900{background-color:#0f172a}
+        .text-slate-300{color:#cbd5e1}
+        .min-h-screen{min-height:100vh}
+        .fixed{position:fixed}
+        .relative{position:relative}
+        .flex{display:flex}
+        .items-center{align-items:center}
+        .justify-center{justify-content:center}
+        .text-center{text-align:center}
+        .w-full{width:100%}
+        .h-full{height:100%}
+        .z-50{z-index:50}
+        .opacity-0{opacity:0}
+        .transition-opacity{transition:opacity .3s}
+        #preloader{inset:0;z-index:9999;background:#0f172a}
+        .hero-title{opacity:0;transform:translateY(60px)}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .animate-spin{animation:spin 1s linear infinite}
+    </style>
     
     <!-- Tailwind CSS (Compiled) -->
     <link rel="stylesheet" href="css/tailwind.css">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome (deferred) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'"  >
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <!-- Google Fonts (optimized with display=swap) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"></noscript>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css?v=6">
+    <link rel="stylesheet" href="css/styles.css?v=7">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -103,22 +137,12 @@
     <div class="noise-overlay"></div>
 
     <!-- Scroll Progress Bar -->
-    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-400 to-emerald-400 z-[100] w-0 transition-all duration-100"></div>
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-400 to-emerald-400 z-[100] w-0"></div>
 
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <!-- Ambient Background (GPU accelerated) -->
+    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden" style="will-change: transform;">
         <div class="ambient-blob absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-500/10 rounded-full blur-[120px]"></div>
         <div class="ambient-blob absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-600/10 rounded-full blur-[120px]" style="animation-delay: -4s;"></div>
-        <div class="ambient-blob absolute top-[40%] left-[60%] w-[30%] h-[30%] bg-cyan-500/5 rounded-full blur-[100px]" style="animation-delay: -8s;"></div>
-        
-        <!-- Floating Particles -->
-        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 1s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 3s;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 5s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
     </div>
 
     <!-- Navigation -->
@@ -193,7 +217,7 @@
                     <div class="aspect-[3/4] w-full bg-dark-800 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl relative group">
                         
                         <!-- PLACE YOUR PROFILE PHOTO HERE: Change the 'src' below to your photo's filename -->
-                        <img src="images/profile.jpg" alt="Rinzin Dorji - Organic Agriculture Researcher from Bhutan" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" loading="lazy">
+                        <img src="images/profile.jpg" alt="Rinzin Dorji - Organic Agriculture Researcher from Bhutan" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" loading="eager" fetchpriority="high" decoding="async" width="420" height="560">
                         
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-60"></div>
                         
@@ -701,16 +725,18 @@
         </div>
     </footer>
 
-    <!-- Custom JS -->
-    <script src="js/script.js"></script>
+    <!-- Custom JS (deferred for performance) -->
+    <script src="js/script.js" defer></script>
     
-    <!-- Service Worker Registration -->
+    <!-- Service Worker Registration (after page load) -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('SW registered'))
-                    .catch(err => console.log('SW registration failed'));
+                // Delay SW registration to not block main thread
+                setTimeout(() => {
+                    navigator.serviceWorker.register('sw.js')
+                        .catch(() => {});
+                }, 3000);
             });
         }
     </script>

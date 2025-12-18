@@ -45,28 +45,33 @@ function animateHeroText() {
 }
 
 // ============================================
-// NAVIGATION
+// NAVIGATION (throttled for performance)
 // ============================================
 
 const nav = document.getElementById('navbar');
 const progressBar = document.getElementById('scroll-progress');
 
+let ticking = false;
 window.addEventListener('scroll', () => {
-    // Nav background on scroll
-    if (window.scrollY > 20) {
-        nav.classList.add('nav-scrolled');
-    } else {
-        nav.classList.remove('nav-scrolled');
-    }
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            // Nav background on scroll
+            if (window.scrollY > 20) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
 
-    // Progress bar
-    if (progressBar) {
-        const winScroll = document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        progressBar.style.width = scrolled + '%';
+            // Progress bar
+            if (progressBar) {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                progressBar.style.width = scrolled + '%';
+            }
+            ticking = false;
+        });
+        ticking = true;
     }
-});
+}, { passive: true });
 
 // Mobile menu
 const menu = document.getElementById('mobile-menu');
@@ -103,41 +108,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// SCROLL ANIMATIONS
+// SCROLL ANIMATIONS (single observer for performance)
 // ============================================
 
-// Reveal elements on scroll
-const revealObserver = new IntersectionObserver((entries) => {
+const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('active');
+            entry.target.classList.add('active', 'visible');
         }
     });
-}, { threshold: 0.1 });
+}, { threshold: 0.1, rootMargin: '50px' });
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// Stagger children animation
-const staggerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.stagger-children').forEach(el => staggerObserver.observe(el));
-
-// Timeline items animation
-const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('.timeline-item').forEach(el => timelineObserver.observe(el));
+// Observe all animated elements at once
+document.querySelectorAll('.reveal, .stagger-children, .timeline-item').forEach(el => scrollObserver.observe(el));
 
 // ============================================
 // COUNTER ANIMATION
