@@ -3,7 +3,7 @@
  * Enables offline access and caching
  */
 
-const CACHE_NAME = 'rinzin-portfolio-v1';
+const CACHE_NAME = 'rinzin-portfolio-v2';
 const OFFLINE_URL = '404.html';
 
 const ASSETS_TO_CACHE = [
@@ -13,7 +13,7 @@ const ASSETS_TO_CACHE = [
     '/css/tailwind.css',
     '/css/styles.css',
     '/js/script.js',
-    '/images/profile.jpg',
+    '/images/icon.svg',
     '/manifest.json'
 ];
 
