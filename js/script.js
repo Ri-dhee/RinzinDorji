@@ -71,8 +71,22 @@ const cursorDot = document.getElementById('cursor-dot');
 
 let mouseX = 0, mouseY = 0;
 let cursorX = 0, cursorY = 0;
+let isMouseInWindow = false;
 
 if (window.matchMedia("(min-width: 768px)").matches) {
+    // Track when mouse enters/leaves window
+    document.addEventListener('mouseenter', () => {
+        isMouseInWindow = true;
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
+    });
+    
+    document.addEventListener('mouseleave', () => {
+        isMouseInWindow = false;
+        cursor.style.opacity = '0';
+        cursorDot.style.opacity = '0';
+    });
+
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
@@ -82,7 +96,16 @@ if (window.matchMedia("(min-width: 768px)").matches) {
         // Make sure cursor is visible
         cursor.style.opacity = '1';
         cursorDot.style.opacity = '1';
+        isMouseInWindow = true;
     });
+
+    // Keep cursor visible during scroll
+    window.addEventListener('scroll', () => {
+        if (isMouseInWindow) {
+            cursor.style.opacity = '1';
+            cursorDot.style.opacity = '1';
+        }
+    }, { passive: true });
 
     // Smooth cursor following
     function animateCursor() {
