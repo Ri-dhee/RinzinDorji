@@ -78,6 +78,10 @@ if (window.matchMedia("(min-width: 768px)").matches) {
         mouseY = e.clientY;
         cursorDot.style.left = e.clientX + 'px';
         cursorDot.style.top = e.clientY + 'px';
+        
+        // Make sure cursor is visible
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
     });
 
     // Smooth cursor following
