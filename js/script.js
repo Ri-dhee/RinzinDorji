@@ -485,39 +485,59 @@ if (downloadCVBtn) {
 }
 
 // ============================================
-// CONTACT FORM (MAILTO)
+// CONTACT FORM (WEB3FORMS)
 // ============================================
 
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('contact-name').value.trim();
-        const email = document.getElementById('contact-email').value.trim();
-        const message = document.getElementById('contact-message').value.trim();
-        
-        // Create mailto link
-        const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-        const mailtoLink = `mailto:rdorji878@gmail.com?subject=${subject}&body=${body}`;
-        
-        // Show loading state
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Opening Email...';
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Reset form and button after delay
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            contactForm.reset();
-        }, 2000);
+        try {
+            const formData = new FormData(contactForm);
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                submitBtn.classList.remove('bg-brand-600', 'hover:bg-brand-500');
+                submitBtn.classList.add('bg-green-600');
+                contactForm.reset();
+                
+                // Reset button after delay
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('bg-green-600');
+                    submitBtn.classList.add('bg-brand-600', 'hover:bg-brand-500');
+                }, 3000);
+            } else {
+                throw new Error(result.message || 'Something went wrong');
+            }
+        } catch (error) {
+            submitBtn.innerHTML = '<i class="fas fa-times"></i> Failed to send';
+            submitBtn.classList.remove('bg-brand-600', 'hover:bg-brand-500');
+            submitBtn.classList.add('bg-red-600');
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('bg-red-600');
+                submitBtn.classList.add('bg-brand-600', 'hover:bg-brand-500');
+            }, 3000);
+        }
     });
 }
 
