@@ -1,4 +1,13 @@
 /*! tailwindcss v4.1.18 | MIT License | https://tailwindcss.com */
+
+/* Force visible cursor everywhere */
+*, *::before, *::after {
+  cursor: auto !important;
+}
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: pointer !important;
+}
+
 @layer properties;
 .pointer-events-none {
   pointer-events: none;
