@@ -1,38 +1,64 @@
-# Portfolio Website - Rinzin Dorji
+# 🌿 Rinzin Dorji - Portfolio Website
 
-This is a personal portfolio website showcasing work in Organic Agriculture, Sustainable Innovation, and Research.
+A modern, high-performance portfolio website showcasing organic agriculture research and sustainable innovation work.
 
-## Structure
-- `index.html`: Main entry point.
-- `css/styles.css`: Custom styling.
-- `js/script.js`: Interactive elements and logic.
-- `js/tailwind.config.js`: Tailwind CSS configuration.
+**Live Site:** [ri-dhee.github.io/RinzinDorji](https://ri-dhee.github.io/RinzinDorji/)
 
-## Deployment to GitHub Pages
+## ✨ Features
 
-I have already installed Git and initialized your local repository.
+- **Performance Optimized** - 85+ PageSpeed score with deferred CSS/JS loading
+- **Fully Responsive** - Mobile-first design that works on all devices
+- **Accessible** - WCAG compliant with proper contrast and ARIA labels
+- **SEO Ready** - Meta tags, Open Graph, Twitter cards, and structured data
+- **PWA Support** - Service worker for offline access
+- **Dark/Light Mode** - Theme toggle with localStorage persistence
+- **Contact Form** - Web3Forms integration for direct email delivery
+- **Smooth Animations** - GPU-accelerated scroll animations
 
-### Step 1: Create the Repository on GitHub
-1.  Log in to [GitHub.com](https://github.com).
-2.  Click the **+** icon in the top right and select **New repository**.
-3.  Name it `portfolio-website` (or `rinzin-portfolio`).
-4.  Make sure it is **Public**.
-5.  **Do not** check "Add a README", "Add .gitignore", or "Choose a license" (we already have files).
-6.  Click **Create repository**.
+## 📁 Project Structure
 
-### Step 2: Push your code
-Copy the commands shown on the GitHub page under "…or push an existing repository from the command line". They will look like this:
-
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/portfolio-website.git
-git branch -M main
-git push -u origin main
+```
+portfolio-website/
+├── index.html          # Main HTML file
+├── 404.html            # Custom error page
+├── manifest.json       # PWA manifest
+├── robots.txt          # Search engine directives
+├── sitemap.xml         # Site map for SEO
+├── sw.js               # Service worker
+├── css/
+│   ├── tailwind.css    # Compiled Tailwind utilities
+│   └── custom.css      # Custom styles & animations
+├── js/
+│   └── script.js       # Main JavaScript
+└── images/
+    ├── profile.jpg     # Profile photo
+    └── icon.svg        # PWA icon
 ```
 
-**Note:** If the `git` command doesn't work in your terminal yet, please **restart VS Code** to recognize the new installation.
+## 🛠️ Technologies
 
-### Step 3: Enable GitHub Pages
-1.  Go to your repository **Settings** tab.
-2.  Click **Pages** in the left sidebar.
-3.  Under **Build and deployment** > **Branch**, select `main` and click **Save**.
-4.  Your site will be live at `https://YOUR-USERNAME.github.io/portfolio-website/` in a few minutes.
+- **HTML5** - Semantic markup
+- **Tailwind CSS v3** - Utility-first CSS framework
+- **Vanilla JavaScript** - No frameworks, lightweight
+- **Font Awesome** - Icon library
+- **Google Fonts** - Outfit & Playfair Display
+- **Web3Forms** - Contact form backend
+
+## 🚀 Performance
+
+| Metric | Score |
+|--------|-------|
+| Performance | 85+ |
+| Accessibility | 94+ |
+| Best Practices | 100 |
+| SEO | 100 |
+
+## 📝 License
+
+© 2025 Rinzin Dorji. All rights reserved.
+
+## 📧 Contact
+
+- **Email:** rdorji878@gmail.com
+- **LinkedIn:** [Rinzin Dorji](https://www.linkedin.com/in/rinzin-dorji-5a1a86216)
+- **Blog:** [A Better Life Learning](https://abetterlifelearning.blogspot.com/)

@@ -3,7 +3,7 @@
  * Enables offline access and caching
  */
 
-const CACHE_NAME = 'rinzin-portfolio-v3';
+const CACHE_NAME = 'rinzin-portfolio-v4';
 const OFFLINE_URL = '404.html';
 
 // Use relative paths for GitHub Pages compatibility
@@ -12,7 +12,7 @@ const ASSETS_TO_CACHE = [
     './index.html',
     './404.html',
     './css/tailwind.css',
-    './css/styles.css',
+    './css/custom.css',
     './js/script.js',
     './images/icon.svg',
     './manifest.json'
