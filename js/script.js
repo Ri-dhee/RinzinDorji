@@ -17,8 +17,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';
+    preloader.style.pointerEvents = 'none';
     setTimeout(() => {
         preloader.style.display = 'none';
+        preloader.remove(); // Remove from DOM completely
         document.body.classList.add('loaded');
         animateHeroText();
     }, 700);
