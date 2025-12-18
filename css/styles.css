@@ -841,13 +841,6 @@
   100% { left: 200%; }
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 768px) {
-  body, a, button, input, textarea {
-    cursor: none !important;
-  }
-}
-
 .tilt-card {
   transform-style: preserve-3d;
   transform: perspective(1000px);
