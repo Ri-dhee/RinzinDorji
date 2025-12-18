@@ -485,24 +485,39 @@ if (downloadCVBtn) {
 }
 
 // ============================================
-// FORM VALIDATION & SUBMISSION
+// CONTACT FORM (MAILTO)
 // ============================================
 
-const contactForm = document.querySelector('form[action*="formspree"]');
+const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        
+        // Create mailto link
+        const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        const mailtoLink = `mailto:rdorji878@gmail.com?subject=${subject}&body=${body}`;
+        
+        // Show loading state
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Opening Email...';
         submitBtn.disabled = true;
         
-        // Re-enable after submission (Formspree handles the actual submit)
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Reset form and button after delay
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        }, 3000);
+            contactForm.reset();
+        }, 2000);
     });
 }
 
