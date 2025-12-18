@@ -1,27 +1,5 @@
 /*! tailwindcss v4.1.18 | MIT License | https://tailwindcss.com */
 
-/* Force visible cursor everywhere */
-html, body {
-  cursor: auto !important;
-}
-*, *::before, *::after {
-  cursor: inherit;
-}
-a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
-  cursor: pointer !important;
-}
-input, textarea {
-  cursor: text !important;
-}
-
-/* Ensure overlays don't block cursor */
-.noise-overlay,
-.particle,
-.ambient-blob,
-#preloader.hidden {
-  pointer-events: none !important;
-}
-
 @layer properties;
 .pointer-events-none {
   pointer-events: none;
