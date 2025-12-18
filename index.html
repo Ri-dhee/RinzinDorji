@@ -4,7 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rinzin Dorji | Organic Agriculture & Sustainable Innovation</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Rinzin Dorji - Aspiring researcher in Organic Agriculture from Bhutan. Passionate about sustainable farming, food security, and environmental innovation.">
+    <meta name="keywords" content="Rinzin Dorji, Organic Agriculture, Bhutan, Sustainable Farming, CNR, Research, Food Security">
+    <meta name="author" content="Rinzin Dorji">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ri-dhee.github.io/RinzinDorji/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ri-dhee.github.io/RinzinDorji/">
+    <meta property="og:title" content="Rinzin Dorji | Organic Agriculture & Sustainable Innovation">
+    <meta property="og:description" content="Aspiring researcher in Organic Agriculture from Bhutan. Passionate about sustainable farming, food security, and environmental innovation.">
+    <meta property="og:image" content="https://ri-dhee.github.io/RinzinDorji/images/og-image.jpg">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ri-dhee.github.io/RinzinDorji/">
+    <meta name="twitter:title" content="Rinzin Dorji | Organic Agriculture & Sustainable Innovation">
+    <meta name="twitter:description" content="Aspiring researcher in Organic Agriculture from Bhutan. Passionate about sustainable farming, food security, and environmental innovation.">
+    <meta name="twitter:image" content="https://ri-dhee.github.io/RinzinDorji/images/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <meta name="theme-color" content="#22c55e">
+    <meta name="msapplication-TileColor" content="#0f172a">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rinzin Dorji",
+        "url": "https://ri-dhee.github.io/RinzinDorji/",
+        "image": "https://ri-dhee.github.io/RinzinDorji/images/profile.jpg",
+        "jobTitle": "Organic Agriculture Researcher",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "College of Natural Resources, Bhutan"
+        },
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "College of Natural Resources"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Punakha",
+            "addressCountry": "Bhutan"
+        },
+        "email": "rdorji878@gmail.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/rinzin-dorji-5a1a86216",
+            "https://abetterlifelearning.blogspot.com/"
+        ]
+    }
+    </script>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Tailwind CSS (Compiled) -->
     <link rel="stylesheet" href="css/tailwind.css">
@@ -16,9 +78,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/styles.css?v=3">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
 </head>
 <body class="bg-dark-900 text-slate-300 font-sans antialiased selection:bg-brand-500 selection:text-dark-900 cursor-none">
+
+    <!-- Skip Navigation Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center transition-opacity duration-700">
@@ -58,24 +126,29 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-500 h-20 md:h-24 flex items-center" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-500 h-20 md:h-24 flex items-center" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-5 md:px-6 w-full flex items-center justify-between">
-            <a href="#" class="text-xl md:text-2xl font-bold text-white tracking-tighter uppercase">
+            <a href="#" class="text-xl md:text-2xl font-bold text-white tracking-tighter uppercase" aria-label="Rinzin Dorji - Home">
                 RINZIN<span class="text-brand-500">.D</span>
             </a>
             
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-slate-800/50 border border-white/10 text-slate-400 hover:text-brand-400 hover:border-brand-500/50 transition-all" aria-label="Toggle dark/light mode">
+                <i class="fas fa-sun text-sm" id="theme-icon"></i>
+            </button>
+            
             <div class="hidden md:flex space-x-8 lg:space-x-10">
-                <a href="#home" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest">Home</a>
-                <a href="#about" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest">Profile</a>
-                <a href="#research" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest">Research</a>
-                <a href="#experience" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest">Experience</a>
+                <a href="#home" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest focus:outline-none focus:text-brand-400">Home</a>
+                <a href="#about" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest focus:outline-none focus:text-brand-400">Profile</a>
+                <a href="#research" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest focus:outline-none focus:text-brand-400">Research</a>
+                <a href="#experience" class="nav-link-animate text-sm font-medium hover:text-brand-400 transition-colors uppercase tracking-widest focus:outline-none focus:text-brand-400">Experience</a>
             </div>
 
-            <a href="#contact" class="hidden md:block px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-full text-xs font-bold transition-all shadow-lg shadow-brand-600/30 uppercase tracking-widest magnetic-btn animated-border">
+            <a href="#contact" class="hidden md:block px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-full text-xs font-bold transition-all shadow-lg shadow-brand-600/30 uppercase tracking-widest magnetic-btn animated-border focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-900">
                 Get In Touch
             </a>
 
-            <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
@@ -92,7 +165,8 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center relative px-5 md:px-6 pt-24 md:pt-0">
+    <main id="main-content">
+    <section id="home" class="min-h-screen flex items-center relative px-5 md:px-6 pt-24 md:pt-0" role="banner">
         <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
             <div class="order-2 lg:order-1 text-center lg:text-left">
                 <div class="hero-stagger inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold tracking-widest uppercase mb-6 mx-auto lg:mx-0 breathe-glow">
@@ -109,11 +183,11 @@
                     Researcher, Enumerator, and AI Enthusiast based in Bhutan. Bridging the gap between traditional organic farming and modern technological innovation.
                 </p>
                 <div class="hero-stagger flex flex-col sm:flex-row justify-center lg:justify-start gap-4 md:gap-5">
-                    <a href="#research" class="btn-shimmer magnetic-btn elastic-btn ripple px-8 py-4 bg-white text-dark-900 rounded-full font-bold hover:bg-brand-500 hover:text-white transition-all text-center shadow-lg shadow-white/20">
+                    <a href="#research" class="btn-shimmer magnetic-btn elastic-btn ripple px-8 py-4 bg-white text-dark-900 rounded-full font-bold hover:bg-brand-500 hover:text-white transition-all text-center shadow-lg shadow-white/20 focus:outline-none focus:ring-2 focus:ring-brand-400">
                         Explore My Thesis
                     </a>
-                    <a href="https://abetterlifelearning.blogspot.com/" target="_blank" class="elastic-btn ripple px-8 py-4 glass-card text-white rounded-full font-bold hover:bg-white/10 transition-all text-center">
-                        Read My Blog
+                    <a href="#" id="download-cv" class="elastic-btn ripple px-8 py-4 bg-brand-600 text-white rounded-full font-bold hover:bg-brand-500 transition-all text-center shadow-lg shadow-brand-600/30 focus:outline-none focus:ring-2 focus:ring-brand-400">
+                        <i class="fas fa-download mr-2"></i>Download CV
                     </a>
                 </div>
             </div>
@@ -123,7 +197,7 @@
                     <div class="aspect-[3/4] w-full bg-dark-800 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl relative group">
                         
                         <!-- PLACE YOUR PROFILE PHOTO HERE: Change the 'src' below to your photo's filename -->
-                        <img src="images/profile.jpg" alt="Rinzin Dorji" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                        <img src="images/profile.jpg" alt="Rinzin Dorji - Organic Agriculture Researcher from Bhutan" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" loading="lazy">
                         
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-60"></div>
                         
@@ -141,7 +215,7 @@
         </div>
 
         <!-- Scroll Indicator -->
-        <a href="#about" class="scroll-indicator hidden md:flex">
+        <a href="#about" class="scroll-indicator hidden md:flex" aria-label="Scroll to About section">
             <div class="mouse">
                 <div class="wheel"></div>
             </div>
@@ -215,34 +289,89 @@
 
     <!-- Stats/Skills Grid -->
     <section class="py-16 md:py-20 px-5 md:px-6 bg-gradient-to-b from-brand-900/10 to-transparent">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 stagger-children reveal">
-            <div class="text-center group">
-                <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center group-hover:bg-brand-500/20 group-hover:border-brand-500/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 pulse-icon">
-                    <i class="fab fa-r-project text-2xl md:text-3xl text-brand-400"></i>
+        <div class="max-w-7xl mx-auto">
+            <!-- Icon Skills -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 stagger-children reveal mb-16">
+                <div class="text-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center group-hover:bg-brand-500/20 group-hover:border-brand-500/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 pulse-icon">
+                        <i class="fab fa-r-project text-2xl md:text-3xl text-brand-400"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm md:text-base">R Statistics</h4>
+                    <p class="text-[10px] md:text-xs text-slate-500 uppercase">Proficient</p>
                 </div>
-                <h4 class="text-white font-bold text-sm md:text-base">R Statistics</h4>
-                <p class="text-[10px] md:text-xs text-slate-500 uppercase">Proficient</p>
+                <div class="text-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/20 group-hover:border-emerald-500/40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
+                        <i class="fas fa-map-marked-alt text-2xl md:text-3xl text-emerald-400"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm md:text-base">ArcGIS Pro</h4>
+                    <p class="text-[10px] md:text-xs text-slate-500 uppercase">Foundations</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/20 group-hover:border-cyan-500/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                        <i class="fas fa-vial text-2xl md:text-3xl text-cyan-400"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm md:text-base">Lab Analysis</h4>
+                    <p class="text-[10px] md:text-xs text-slate-500 uppercase">Bioplastics</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/20 group-hover:border-purple-500/40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
+                        <i class="fas fa-robot text-2xl md:text-3xl text-purple-400"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-sm md:text-base">AI Ethics</h4>
+                    <p class="text-[10px] md:text-xs text-slate-500 uppercase">Advocate</p>
+                </div>
             </div>
-            <div class="text-center group">
-                <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/20 group-hover:border-emerald-500/40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                    <i class="fas fa-map-marked-alt text-2xl md:text-3xl text-emerald-400"></i>
+            
+            <!-- Animated Skill Bars -->
+            <div class="max-w-3xl mx-auto reveal">
+                <h3 class="text-xl font-bold text-white mb-8 text-center">Technical Proficiency</h3>
+                <div class="space-y-6">
+                    <div class="skill-bar-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white font-medium text-sm">Organic Agriculture & Research</span>
+                            <span class="text-brand-400 text-sm">95%</span>
+                        </div>
+                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-gradient-to-r from-brand-500 to-emerald-400 rounded-full" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white font-medium text-sm">Data Analysis (R, Excel)</span>
+                            <span class="text-brand-400 text-sm">80%</span>
+                        </div>
+                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white font-medium text-sm">Laboratory Techniques</span>
+                            <span class="text-brand-400 text-sm">85%</span>
+                        </div>
+                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-gradient-to-r from-purple-500 to-pink-400 rounded-full" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white font-medium text-sm">GIS & Mapping</span>
+                            <span class="text-brand-400 text-sm">65%</span>
+                        </div>
+                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" data-width="65"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-white font-medium text-sm">Technical Writing</span>
+                            <span class="text-brand-400 text-sm">90%</span>
+                        </div>
+                        <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full" data-width="90"></div>
+                        </div>
+                    </div>
                 </div>
-                <h4 class="text-white font-bold text-sm md:text-base">ArcGIS Pro</h4>
-                <p class="text-[10px] md:text-xs text-slate-500 uppercase">Foundations</p>
-            </div>
-            <div class="text-center group">
-                <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/20 group-hover:border-cyan-500/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                    <i class="fas fa-vial text-2xl md:text-3xl text-cyan-400"></i>
-                </div>
-                <h4 class="text-white font-bold text-sm md:text-base">Lab Analysis</h4>
-                <p class="text-[10px] md:text-xs text-slate-500 uppercase">Bioplastics</p>
-            </div>
-            <div class="text-center group">
-                <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/20 group-hover:border-purple-500/40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                    <i class="fas fa-robot text-2xl md:text-3xl text-purple-400"></i>
-                </div>
-                <h4 class="text-white font-bold text-sm md:text-base">AI Ethics</h4>
-                <p class="text-[10px] md:text-xs text-slate-500 uppercase">Advocate</p>
             </div>
         </div>
     </section>
@@ -446,8 +575,6 @@
                 </div>
 
                 <!-- Card 6 -->
-                <div class="glass-card-premium spotlight p-6 rounded-2xl reveal" style="transition-delay: 200ms">
-                <!-- Card 6 -->
                 <div class="glass-card-premium spotlight p-6 rounded-2xl reveal card-lift scale-pop" style="--delay: 0.5s">
                     <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center mb-4 icon-float">
                         <i class="fas fa-pen-fancy text-pink-500 text-xl pulse-icon"></i>
@@ -462,6 +589,69 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="py-20 md:py-32 px-5 md:px-6 bg-dark-800/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 md:mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 scramble-text">What People Say</h2>
+                <p class="text-slate-400 text-sm md:text-base">Reflections from mentors and collaborators.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+                <!-- Testimonial 1 -->
+                <div class="glass-card-premium p-8 rounded-2xl reveal card-lift relative">
+                    <div class="absolute top-6 right-6 text-6xl text-brand-500/10 font-serif">"</div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6 relative z-10">
+                        Rinzin demonstrates exceptional dedication to sustainable agriculture research. His thesis on bioplastics shows innovative thinking and rigorous methodology.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center">
+                            <i class="fas fa-user text-brand-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Academic Mentor</h4>
+                            <p class="text-slate-500 text-xs">College of Natural Resources</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="glass-card-premium p-8 rounded-2xl reveal card-lift relative" style="--delay: 0.1s">
+                    <div class="absolute top-6 right-6 text-6xl text-purple-500/10 font-serif">"</div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6 relative z-10">
+                        A passionate learner with strong analytical skills. His work on the WERELIS project showed remarkable ability to gather and interpret socio-economic data.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                            <i class="fas fa-user text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Project Supervisor</h4>
+                            <p class="text-slate-500 text-xs">ICIMOD & Dept. of Energy</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="glass-card-premium p-8 rounded-2xl reveal card-lift relative" style="--delay: 0.2s">
+                    <div class="absolute top-6 right-6 text-6xl text-cyan-500/10 font-serif">"</div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6 relative z-10">
+                        Rinzin brings enthusiasm and thoughtful insights to every project. His blog reflects deep philosophical thinking combined with practical wisdom.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                            <i class="fas fa-user text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Fellowship Coordinator</h4>
+                            <p class="text-slate-500 text-xs">Youth Co:Lab UNDP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20 md:py-32 px-5 md:px-6 relative overflow-hidden">
         <!-- Background glow -->
@@ -469,6 +659,19 @@
         
         <div class="max-w-7xl mx-auto text-center reveal relative z-10">
             <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-8 md:mb-12 leading-tight glow-text contact-heading">Let's grow <br class="sm:hidden"><span class="gradient-text italic font-serif">something</span> together.</h2>
+            
+            <!-- Contact Form -->
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-xl mx-auto mb-16 space-y-6 reveal">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" name="name" placeholder="Your Name" required class="w-full px-6 py-4 bg-dark-800/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+                    <input type="email" name="email" placeholder="Your Email" required class="w-full px-6 py-4 bg-dark-800/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+                </div>
+                <textarea name="message" rows="4" placeholder="Your Message" required class="w-full px-6 py-4 bg-dark-800/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors resize-none"></textarea>
+                <button type="submit" class="w-full px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 magnetic-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Message
+                </button>
+            </form>
             
             <div class="flex flex-col items-center justify-center gap-6 md:gap-10 mt-10 md:mt-16">
                 <a href="mailto:rdorji878@gmail.com" class="text-xl sm:text-2xl md:text-4xl font-light text-slate-400 hover:text-brand-400 transition-all duration-300 underline underline-offset-8 break-all hover:scale-105 magnetic-btn email-link">
@@ -479,14 +682,20 @@
             </div>
 
             <div class="flex justify-center space-x-6 md:space-x-8 mt-16 md:mt-24 social-links">
-                <a href="https://www.linkedin.com/in/rinzin-dorji-5a1a86216" target="_blank" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 hover:bg-brand-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon"><i class="fab fa-linkedin-in text-xl"></i></a>
-                <a href="#" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon"><i class="fab fa-github text-xl"></i></a>
-                <a href="https://abetterlifelearning.blogspot.com/" target="_blank" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon"><i class="fab fa-blogger-b text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/rinzin-dorji-5a1a86216" target="_blank" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 hover:bg-brand-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in text-xl"></i></a>
+                <a href="#" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon" aria-label="GitHub Profile"><i class="fab fa-github text-xl"></i></a>
+                <a href="https://abetterlifelearning.blogspot.com/" target="_blank" class="w-14 h-14 rounded-full bg-slate-800/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-orange-400 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1 magnetic-btn social-icon" aria-label="Blog"><i class="fab fa-blogger-b text-xl"></i></a>
             </div>
         </div>
     </section>
+    </main>
 
-    <footer class="py-10 md:py-12 px-5 md:px-6 border-t border-white/5 bg-gradient-to-t from-dark-900 to-transparent">
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-14 h-14 bg-brand-600 hover:bg-brand-500 text-white rounded-full shadow-lg shadow-brand-600/30 flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50 hover:scale-110" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="py-10 md:py-12 px-5 md:px-6 border-t border-white/5 bg-gradient-to-t from-dark-900 to-transparent" role="contentinfo">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-600 text-[10px] md:text-xs uppercase tracking-widest gap-6 text-center">
             <p>&copy; <span id="year"></span> RINZIN DORJI - BHUTAN</p>
             <p class="text-brand-500/60">Sustainable Innovation & Digital Excellence</p>
@@ -495,5 +704,16 @@
 
     <!-- Custom JS -->
     <script src="js/script.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+    </script>
 </body>
 </html>

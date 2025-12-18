@@ -370,3 +370,158 @@ window.addEventListener('scroll', () => {
         blob.style.transform = `rotate(${rotation}deg) scale(${1 + Math.sin(scrolled * 0.001) * 0.1})`;
     });
 }, { passive: true });
+
+// ============================================
+// BACK TO TOP BUTTON
+// ============================================
+
+const backToTopBtn = document.getElementById('back-to-top');
+
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.remove('opacity-0', 'invisible');
+            backToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+            backToTopBtn.classList.add('opacity-0', 'invisible');
+            backToTopBtn.classList.remove('opacity-100', 'visible');
+        }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ============================================
+// ANIMATED SKILL BARS
+// ============================================
+
+const skillBarObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const skillBars = entry.target.querySelectorAll('.skill-bar');
+            skillBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                    bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                }, index * 200);
+            });
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.skill-bar-item').forEach(el => {
+    const parent = el.closest('.reveal');
+    if (parent) skillBarObserver.observe(parent);
+});
+
+// ============================================
+// DARK/LIGHT MODE TOGGLE
+// ============================================
+
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to dark
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        
+        // Add transition class for smooth change
+        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    });
+}
+
+function updateThemeIcon(theme) {
+    if (themeIcon) {
+        themeIcon.className = theme === 'dark' ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+    }
+}
+
+// ============================================
+// CV DOWNLOAD
+// ============================================
+
+const downloadCVBtn = document.getElementById('download-cv');
+
+if (downloadCVBtn) {
+    downloadCVBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Check if CV file exists, otherwise show message
+        const cvUrl = 'documents/Rinzin_Dorji_CV.pdf';
+        
+        // Create temporary link for download
+        const link = document.createElement('a');
+        link.href = cvUrl;
+        link.download = 'Rinzin_Dorji_CV.pdf';
+        link.target = '_blank';
+        
+        // Try to download, fallback to alert if file doesn't exist
+        fetch(cvUrl, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    link.click();
+                } else {
+                    alert('CV is being updated. Please contact me via email for the latest version.');
+                }
+            })
+            .catch(() => {
+                alert('CV is being updated. Please contact me via email for the latest version.');
+            });
+    });
+}
+
+// ============================================
+// FORM VALIDATION & SUBMISSION
+// ============================================
+
+const contactForm = document.querySelector('form[action*="formspree"]');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        // Re-enable after submission (Formspree handles the actual submit)
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 3000);
+    });
+}
+
+// ============================================
+// LAZY LOADING FOR IMAGES
+// ============================================
+
+if ('IntersectionObserver' in window) {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+}

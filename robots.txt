@@ -1,0 +1,11 @@
+# Robots.txt for Rinzin Dorji Portfolio
+# https://ri-dhee.github.io/RinzinDorji/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ri-dhee.github.io/RinzinDorji/sitemap.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1
