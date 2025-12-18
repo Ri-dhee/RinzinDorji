@@ -3,18 +3,19 @@
  * Enables offline access and caching
  */
 
-const CACHE_NAME = 'rinzin-portfolio-v2';
+const CACHE_NAME = 'rinzin-portfolio-v3';
 const OFFLINE_URL = '404.html';
 
+// Use relative paths for GitHub Pages compatibility
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/404.html',
-    '/css/tailwind.css',
-    '/css/styles.css',
-    '/js/script.js',
-    '/images/icon.svg',
-    '/manifest.json'
+    './',
+    './index.html',
+    './404.html',
+    './css/tailwind.css',
+    './css/styles.css',
+    './js/script.js',
+    './images/icon.svg',
+    './manifest.json'
 ];
 
 // Install event - cache assets
@@ -23,7 +24,14 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME)
             .then((cache) => {
                 console.log('Caching app shell');
-                return cache.addAll(ASSETS_TO_CACHE);
+                // Cache each asset individually to handle failures gracefully
+                return Promise.all(
+                    ASSETS_TO_CACHE.map(url => {
+                        return cache.add(url).catch(err => {
+                            console.warn('Failed to cache:', url, err);
+                        });
+                    })
+                );
             })
             .then(() => self.skipWaiting())
     );
