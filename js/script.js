@@ -30,10 +30,73 @@ window.addEventListener('load', () => {
 // HERO ANIMATIONS
 // ============================================
 
+class TextScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+    }
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+    update() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span class="scramble-char">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
 function animateHeroText() {
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
         heroTitle.classList.add('animate-in');
+        
+        // Scramble effect for the subtitle or specific words
+        const scrambleEl = document.querySelector('.gradient-text');
+        if (scrambleEl) {
+            const fx = new TextScramble(scrambleEl);
+            setTimeout(() => {
+                fx.setText(scrambleEl.innerText);
+            }, 1000);
+        }
     }
     
     const heroElements = document.querySelectorAll('.hero-stagger');
@@ -50,6 +113,8 @@ function animateHeroText() {
 
 const nav = document.getElementById('navbar');
 const progressBar = document.getElementById('scroll-progress');
+const scrollCircle = document.getElementById('scroll-circle');
+const backToTop = document.getElementById('back-to-top');
 
 let ticking = false;
 window.addEventListener('scroll', () => {
@@ -62,11 +127,31 @@ window.addEventListener('scroll', () => {
                 nav.classList.remove('nav-scrolled');
             }
 
-            // Progress bar
+            // Progress bar & Circle
+            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollTotal) * 100;
+            
             if (progressBar) {
-                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
                 progressBar.style.width = scrolled + '%';
             }
+            
+            if (scrollCircle) {
+                const circumference = 2 * Math.PI * 45;
+                const offset = circumference - (scrolled / 100) * circumference;
+                scrollCircle.style.strokeDashoffset = offset;
+            }
+
+            // Back to top visibility
+            if (backToTop) {
+                if (window.scrollY > 500) {
+                    backToTop.classList.remove('opacity-0', 'invisible');
+                    backToTop.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTop.classList.add('opacity-0', 'invisible');
+                    backToTop.classList.remove('opacity-100', 'visible');
+                }
+            }
+
             ticking = false;
         });
         ticking = true;
@@ -238,6 +323,8 @@ document.querySelectorAll('.scramble-text').forEach(el => scrambleObserver.obser
 // ============================================
 // MAGNETIC BUTTONS
 // ============================================
+// MAGNETIC BUTTONS
+// ============================================
 
 document.querySelectorAll('.magnetic-btn').forEach(btn => {
     btn.addEventListener('mousemove', (e) => {
@@ -251,40 +338,6 @@ document.querySelectorAll('.magnetic-btn').forEach(btn => {
         btn.style.transform = 'translate(0, 0)';
     });
 });
-
-// ============================================
-// 3D TILT EFFECT
-// ============================================
-
-if (window.matchMedia("(min-width: 768px)").matches) {
-    document.addEventListener('mousemove', (e) => {
-        const cards = document.querySelectorAll('.glass-card, .profile-img-container');
-        
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            if (
-                e.clientX >= rect.left - 50 && 
-                e.clientX <= rect.right + 50 && 
-                e.clientY >= rect.top - 50 && 
-                e.clientY <= rect.bottom + 50
-            ) {
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -5;
-                const rotateY = ((x - centerX) / centerX) * 5;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.transition = 'transform 0.1s ease';
-            } else {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                card.style.transition = 'transform 0.5s ease';
-            }
-        });
-    });
-}
 
 // ============================================
 // PARALLAX EFFECT
@@ -490,3 +543,136 @@ if ('IntersectionObserver' in window) {
 
     lazyImages.forEach(img => imageObserver.observe(img));
 }
+
+// ============================================
+// CUSTOM CURSOR
+// ============================================
+
+const cursorDot = document.querySelector("[data-cursor-dot]");
+const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+if (cursorDot && cursorOutline) {
+    window.addEventListener("mousemove", (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+
+        // Parallax effect for ambient blobs
+        const blobs = document.querySelectorAll('.ambient-blob');
+        blobs.forEach((blob, index) => {
+            const speed = (index + 1) * 0.02;
+            const x = (window.innerWidth - e.pageX * speed) / 100;
+            const y = (window.innerHeight - e.pageY * speed) / 100;
+            blob.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    });
+
+    // Add hover effect to interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .magnetic-btn, input, textarea');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-hover');
+        });
+    });
+}
+
+// ============================================
+// PARTICLE BACKGROUND
+// ============================================
+
+const canvas = document.getElementById('particle-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 50;
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+            this.opacity = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', initParticles);
+    initParticles();
+    animateParticles();
+}
+
+// ============================================
+// 3D TILT EFFECT
+// ============================================
+
+const tiltElements = document.querySelectorAll('.profile-img-container, .glass-card, .research-card');
+
+tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+        el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+    
+    el.style.transition = 'transform 0.1s ease-out';
+});

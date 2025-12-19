@@ -177,6 +177,7 @@
 
     <!-- Ambient Background (GPU accelerated) -->
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden" style="will-change: transform;">
+        <canvas id="particle-canvas" class="absolute inset-0 w-full h-full opacity-40"></canvas>
         <div class="ambient-blob absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-500/10 rounded-full blur-[120px]"></div>
         <div class="ambient-blob absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-600/10 rounded-full blur-[120px]" style="animation-delay: -4s;"></div>
     </div>
@@ -750,8 +751,12 @@
     </main>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 w-14 h-14 bg-brand-600 hover:bg-brand-500 text-white rounded-full shadow-lg shadow-brand-600/30 flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50 hover:scale-110" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-14 h-14 bg-brand-600 hover:bg-brand-500 text-white rounded-full shadow-lg shadow-brand-600/30 flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50 hover:scale-110 group magnetic-btn" aria-label="Back to top">
+        <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle class="text-white/20" stroke-width="4" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50"/>
+            <circle id="scroll-circle" class="text-white" stroke-width="4" stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50"/>
+        </svg>
+        <i class="fas fa-arrow-up relative z-10 group-hover:-translate-y-1 transition-transform"></i>
     </button>
 
     <footer class="py-10 md:py-12 px-5 md:px-6 border-t border-white/5 bg-gradient-to-t from-dark-900 to-transparent" role="contentinfo">
@@ -760,6 +765,10 @@
             <p class="text-brand-500/60">Sustainable Innovation & Digital Excellence</p>
         </div>
     </footer>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
     <!-- Custom JS (deferred for performance) -->
     <script src="js/script.js" defer></script>
