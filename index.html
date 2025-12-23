@@ -779,8 +779,8 @@
 
                 <!-- Contact Form -->
                 <div class="glass-card p-8 md:p-12 rounded-[3rem] border-white/5">
-                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-                        <input type="hidden" name="access_key" value="3ef411aa-1a16-44cf-a688-3bbfb4b534de">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6" autocomplete="on">
+                        <input type="hidden" name="access_key" value="3ef411aa-1a16-44cf-a688-3bbfb4b534de" autocomplete="off">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label for="name" class="text-[10px] uppercase tracking-widest text-slate-400 font-bold ml-2">Name</label>
@@ -793,7 +793,7 @@
                         </div>
                         <div class="space-y-2">
                             <label for="message" class="text-[10px] uppercase tracking-widest text-slate-400 font-bold ml-2">Message</label>
-                            <textarea id="message" name="message" rows="4" placeholder="How can I help you?" required class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors resize-none"></textarea>
+                            <textarea id="message" name="message" rows="4" autocomplete="off" placeholder="How can I help you?" required class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors resize-none"></textarea>
                         </div>
                         <button type="submit" class="w-full px-8 py-5 bg-brand-600 hover:bg-brand-500 text-white rounded-2xl font-bold transition-all shadow-xl shadow-brand-600/20 flex items-center justify-center gap-3 uppercase tracking-widest text-xs magnetic-btn">
                             <span>Send Message</span>
