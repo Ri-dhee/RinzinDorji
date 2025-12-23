@@ -502,7 +502,20 @@ const cursorDot = document.querySelector("[data-cursor-dot]");
 const cursorOutline = document.querySelector("[data-cursor-outline]");
 
 if (cursorDot && cursorOutline) {
+    let cursorEnabled = false;
+    const enableCursor = () => {
+        if (cursorEnabled) return;
+        cursorEnabled = true;
+        document.body.classList.add('cursor-enabled');
+    };
+
+    window.addEventListener('touchstart', () => {
+        cursorEnabled = false;
+        document.body.classList.remove('cursor-enabled');
+    }, { passive: true });
+
     window.addEventListener("mousemove", (e) => {
+        enableCursor();
         const posX = e.clientX;
         const posY = e.clientY;
 
