@@ -184,10 +184,19 @@ if (openBtn && menu && closeBtn) {
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        // Ignore links that are just '#' to prevent SyntaxError
+        if (href === '#') return;
+        
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try {
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        } catch (err) {
+            console.error('Invalid selector:', href);
         }
     });
 });
