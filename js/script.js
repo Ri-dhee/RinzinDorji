@@ -7,8 +7,11 @@
 // INITIALIZATION
 // ============================================
 
+const HAS_INTERSECTION_OBSERVER = 'IntersectionObserver' in window;
+
 // Set current year in footer
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ============================================
 // PRELOADER
@@ -16,6 +19,11 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
+    if (!preloader) {
+        document.body.classList.add('loaded');
+        animateHeroText();
+        return;
+    }
     preloader.style.opacity = '0';
     preloader.style.pointerEvents = 'none';
     setTimeout(() => {
@@ -39,7 +47,9 @@ class TextScramble {
     setText(newText) {
         const oldText = this.el.innerText;
         const length = Math.max(oldText.length, newText.length);
-        const promise = new Promise((resolve) => this.resolve = resolve);
+        const promise = new Promise((resolve) => {
+            this.resolve = resolve;
+        });
         this.queue = [];
         for (let i = 0; i < length; i++) {
             const from = oldText[i] || '';
@@ -48,7 +58,7 @@ class TextScramble {
             const end = start + Math.floor(Math.random() * 40);
             this.queue.push({ from, to, start, end });
         }
-        cancelAnimationFrame(this.frameRequest);
+        if (this.frameRequest) cancelAnimationFrame(this.frameRequest);
         this.frame = 0;
         this.update();
         return promise;
@@ -88,7 +98,7 @@ function animateHeroText() {
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
         heroTitle.classList.add('animate-in');
-        
+
         // Scramble effect for the subtitle or specific words
         const scrambleEl = document.querySelector('.gradient-text');
         if (scrambleEl) {
@@ -98,7 +108,7 @@ function animateHeroText() {
             }, 1000);
         }
     }
-    
+
     const heroElements = document.querySelectorAll('.hero-stagger');
     heroElements.forEach((el, index) => {
         setTimeout(() => {
@@ -115,35 +125,48 @@ const nav = document.getElementById('navbar');
 const progressBar = document.getElementById('scroll-progress');
 const scrollCircle = document.getElementById('scroll-circle');
 const backToTop = document.getElementById('back-to-top');
+const ambientBlobs = document.querySelectorAll('.ambient-blob');
 
 let ticking = false;
 window.addEventListener('scroll', () => {
     if (!ticking) {
         requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+
             // Nav background on scroll
-            if (window.scrollY > 20) {
-                nav.classList.add('nav-scrolled');
-            } else {
-                nav.classList.remove('nav-scrolled');
+            if (nav) {
+                if (scrollY > 20) {
+                    nav.classList.add('nav-scrolled');
+                } else {
+                    nav.classList.remove('nav-scrolled');
+                }
             }
 
             // Progress bar & Circle
             const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / scrollTotal) * 100;
-            
+            const scrolled = scrollTotal > 0 ? (scrollY / scrollTotal) * 100 : 0;
+
             if (progressBar) {
                 progressBar.style.width = scrolled + '%';
             }
-            
+
             if (scrollCircle) {
                 const circumference = 2 * Math.PI * 45;
                 const offset = circumference - (scrolled / 100) * circumference;
                 scrollCircle.style.strokeDashoffset = offset;
             }
 
+            // Ambient blobs parallax
+            if (ambientBlobs.length) {
+                ambientBlobs.forEach((blob, i) => {
+                    const rotation = scrollY * 0.02 * (i % 2 === 0 ? 1 : -1);
+                    blob.style.transform = `rotate(${rotation}deg) scale(${1 + Math.sin(scrollY * 0.001) * 0.1})`;
+                });
+            }
+
             // Back to top visibility
             if (backToTop) {
-                if (window.scrollY > 500) {
+                if (scrollY > 500) {
                     backToTop.classList.remove('opacity-0', 'invisible');
                     backToTop.classList.add('opacity-100', 'visible');
                 } else {
@@ -157,6 +180,13 @@ window.addEventListener('scroll', () => {
         ticking = true;
     }
 }, { passive: true });
+
+// Back to top click handler (visibility handled in scroll rAF above)
+if (backToTop) {
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 // Mobile menu
 const menu = document.getElementById('mobile-menu');
@@ -183,12 +213,12 @@ if (openBtn && menu && closeBtn) {
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        
+
         // Ignore links that are just '#' to prevent SyntaxError
         if (href === '#') return;
-        
+
         e.preventDefault();
         try {
             const target = document.querySelector(href);
@@ -205,16 +235,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // SCROLL ANIMATIONS (single observer for performance)
 // ============================================
 
-const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active', 'visible');
-        }
-    });
-}, { threshold: 0.1, rootMargin: '50px' });
+if (HAS_INTERSECTION_OBSERVER) {
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active', 'visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '50px' });
 
-// Observe all animated elements at once
-document.querySelectorAll('.reveal, .stagger-children, .timeline-item').forEach(el => scrollObserver.observe(el));
+    // Observe all animated elements at once
+    document.querySelectorAll('.reveal, .stagger-children, .timeline-item').forEach(el => scrollObserver.observe(el));
+} else {
+    document.querySelectorAll('.reveal, .stagger-children, .timeline-item').forEach(el => {
+        el.classList.add('active', 'visible');
+    });
+}
 
 // ============================================
 // COUNTER ANIMATION
@@ -223,7 +259,7 @@ document.querySelectorAll('.reveal, .stagger-children, .timeline-item').forEach(
 function animateCounters() {
     const counters = document.querySelectorAll('.counter');
     counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
+        const target = Number.parseInt(counter.getAttribute('data-target') || '0', 10);
         const suffix = counter.getAttribute('data-suffix') || '';
         const duration = 2000;
         const startTime = performance.now();
@@ -243,35 +279,39 @@ function animateCounters() {
     });
 }
 
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-            entry.target.classList.add('counted');
-            animateCounters();
-        }
-    });
-}, { threshold: 0.5 });
+if (HAS_INTERSECTION_OBSERVER) {
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                entry.target.classList.add('counted');
+                animateCounters();
+            }
+        });
+    }, { threshold: 0.5 });
 
-document.querySelectorAll('.counter-section').forEach(el => counterObserver.observe(el));
+    document.querySelectorAll('.counter-section').forEach(el => counterObserver.observe(el));
+} else {
+    animateCounters();
+}
 
 // ============================================
 // TEXT SCRAMBLE EFFECT
 // ============================================
 
-const scrambleObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('scrambled')) {
-            entry.target.classList.add('scrambled');
-            const fx = new TextScramble(entry.target);
-            fx.setText(entry.target.textContent);
-        }
-    });
-}, { threshold: 0.5 });
+if (HAS_INTERSECTION_OBSERVER) {
+    const scrambleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('scrambled')) {
+                entry.target.classList.add('scrambled');
+                const fx = new TextScramble(entry.target);
+                fx.setText(entry.target.textContent);
+            }
+        });
+    }, { threshold: 0.5 });
 
-document.querySelectorAll('.scramble-text').forEach(el => scrambleObserver.observe(el));
+    document.querySelectorAll('.scramble-text').forEach(el => scrambleObserver.observe(el));
+}
 
-// ============================================
-// MAGNETIC BUTTONS
 // ============================================
 // MAGNETIC BUTTONS
 // ============================================
@@ -283,7 +323,7 @@ document.querySelectorAll('.magnetic-btn').forEach(btn => {
         const y = e.clientY - rect.top - rect.height / 2;
         btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
     });
-    
+
     btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0, 0)';
     });
@@ -292,63 +332,39 @@ document.querySelectorAll('.magnetic-btn').forEach(btn => {
 // ============================================
 // PARALLAX EFFECT
 // ============================================
-
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    
-    // Ambient blobs parallax
-    const blobs = document.querySelectorAll('.ambient-blob');
-    blobs.forEach((blob, i) => {
-        const rotation = scrolled * 0.02 * (i % 2 === 0 ? 1 : -1);
-        blob.style.transform = `rotate(${rotation}deg) scale(${1 + Math.sin(scrolled * 0.001) * 0.1})`;
-    });
-}, { passive: true });
-
-// ============================================
-// BACK TO TOP BUTTON
-// ============================================
-
-const backToTopBtn = document.getElementById('back-to-top');
-
-if (backToTopBtn) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            backToTopBtn.classList.remove('opacity-0', 'invisible');
-            backToTopBtn.classList.add('opacity-100', 'visible');
-        } else {
-            backToTopBtn.classList.add('opacity-0', 'invisible');
-            backToTopBtn.classList.remove('opacity-100', 'visible');
-        }
-    }, { passive: true });
-
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
+// (Handled in the rAF-throttled scroll listener above for performance)
 
 // ============================================
 // ANIMATED SKILL BARS
 // ============================================
 
-const skillBarObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const skillBars = entry.target.querySelectorAll('.skill-bar');
-            skillBars.forEach((bar, index) => {
-                setTimeout(() => {
-                    const width = bar.getAttribute('data-width');
-                    bar.style.width = width + '%';
-                    bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
-                }, index * 200);
-            });
-        }
-    });
-}, { threshold: 0.3 });
+if (HAS_INTERSECTION_OBSERVER) {
+    const skillBarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBars = entry.target.querySelectorAll('.skill-bar');
+                skillBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width + '%';
+                        bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                    }, index * 200);
+                });
+            }
+        });
+    }, { threshold: 0.3 });
 
-document.querySelectorAll('.skill-bar-item').forEach(el => {
-    const parent = el.closest('.reveal');
-    if (parent) skillBarObserver.observe(parent);
-});
+    document.querySelectorAll('.skill-bar-item').forEach(el => {
+        const parent = el.closest('.reveal');
+        if (parent) skillBarObserver.observe(parent);
+    });
+} else {
+    document.querySelectorAll('.skill-bar').forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        bar.style.width = width + '%';
+        bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    });
+}
 
 // ============================================
 // DARK/LIGHT MODE TOGGLE
@@ -426,10 +442,11 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (!submitBtn) return;
         const originalText = submitBtn.innerHTML;
-        
+
         // Show loading state
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
@@ -478,9 +495,9 @@ if (contactForm) {
 // LAZY LOADING FOR IMAGES
 // ============================================
 
-if ('IntersectionObserver' in window) {
+if (HAS_INTERSECTION_OBSERVER) {
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
+
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -528,8 +545,7 @@ if (cursorDot && cursorOutline) {
         }, { duration: 500, fill: "forwards" });
 
         // Parallax effect for ambient blobs
-        const blobs = document.querySelectorAll('.ambient-blob');
-        blobs.forEach((blob, index) => {
+        ambientBlobs.forEach((blob, index) => {
             const speed = (index + 1) * 0.02;
             const x = (window.innerWidth - e.pageX * speed) / 100;
             const y = (window.innerHeight - e.pageY * speed) / 100;
