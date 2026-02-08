@@ -3,7 +3,7 @@
  * Enables offline access and caching
  */
 
-const CACHE_NAME = 'rinzin-portfolio-v12';
+const CACHE_NAME = 'rinzin-portfolio-v13';
 const OFFLINE_URL = '404.html';
 
 // Use relative paths for GitHub Pages compatibility
@@ -86,7 +86,8 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch(() => {
                         // Offline fallback for HTML pages
-                        if (event.request.headers.get('accept').includes('text/html')) {
+                        const acceptHeader = event.request.headers.get('accept');
+                        if (acceptHeader && acceptHeader.includes('text/html')) {
                             return caches.match(OFFLINE_URL);
                         }
                     });

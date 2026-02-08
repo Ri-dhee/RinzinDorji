@@ -445,10 +445,21 @@ if (contactForm) {
 
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         if (!submitBtn) return;
-        const originalText = submitBtn.innerHTML;
+        
+        // Store original button content
+        const originalHTML = submitBtn.innerHTML;
+
+        // Helper function to safely set button content
+        function setButtonContent(iconClass, text) {
+            submitBtn.textContent = ''; // Clear existing content
+            const icon = document.createElement('i');
+            icon.className = iconClass;
+            submitBtn.appendChild(icon);
+            submitBtn.appendChild(document.createTextNode(' ' + text));
+        }
 
         // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        setButtonContent('fas fa-spinner fa-spin', 'Sending...');
         submitBtn.disabled = true;
         
         try {
@@ -461,14 +472,14 @@ if (contactForm) {
             const result = await response.json();
             
             if (result.success) {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                setButtonContent('fas fa-check', 'Message Sent!');
                 submitBtn.classList.remove('bg-brand-600', 'hover:bg-brand-500');
                 submitBtn.classList.add('bg-green-600');
                 contactForm.reset();
                 
                 // Reset button after delay
                 setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
+                    submitBtn.innerHTML = originalHTML;
                     submitBtn.disabled = false;
                     submitBtn.classList.remove('bg-green-600');
                     submitBtn.classList.add('bg-brand-600', 'hover:bg-brand-500');
@@ -477,12 +488,12 @@ if (contactForm) {
                 throw new Error(result.message || 'Something went wrong');
             }
         } catch (error) {
-            submitBtn.innerHTML = '<i class="fas fa-times"></i> Failed to send';
+            setButtonContent('fas fa-times', 'Failed to send');
             submitBtn.classList.remove('bg-brand-600', 'hover:bg-brand-500');
             submitBtn.classList.add('bg-red-600');
             
             setTimeout(() => {
-                submitBtn.innerHTML = originalText;
+                submitBtn.innerHTML = originalHTML;
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('bg-red-600');
                 submitBtn.classList.add('bg-brand-600', 'hover:bg-brand-500');
