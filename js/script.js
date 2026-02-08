@@ -477,7 +477,7 @@ if (contactForm) {
                 submitBtn.classList.add('bg-green-600');
                 contactForm.reset();
                 
-                // Reset button after delay
+                // Reset button after delay (using innerHTML here is safe - restoring original trusted HTML)
                 setTimeout(() => {
                     submitBtn.innerHTML = originalHTML;
                     submitBtn.disabled = false;
@@ -492,6 +492,7 @@ if (contactForm) {
             submitBtn.classList.remove('bg-brand-600', 'hover:bg-brand-500');
             submitBtn.classList.add('bg-red-600');
             
+            // Reset button after delay (using innerHTML here is safe - restoring original trusted HTML)
             setTimeout(() => {
                 submitBtn.innerHTML = originalHTML;
                 submitBtn.disabled = false;
